@@ -6,6 +6,7 @@ from buttons import Buttons
 from controller import Controller
 from skins import Skins
 from monsters import Monster
+from slider import VolumeControl
 
 
 pygame.init()
@@ -39,6 +40,7 @@ buttons = Buttons()
 controller = Controller()
 skins = Skins()
 monster = Monster()
+slider = VolumeControl(100, 700, 300)
 
 
 def create_platforms():
@@ -220,6 +222,8 @@ while running:
         screen.blit(background, (0, 0))
         buttons.draw_menu_button(screen)
         buttons.update(controller.gamemode)
+        slider.handle_event(event)
+        slider.draw(screen)
 
     elif controller.gamemode == "score":
         background = game_background

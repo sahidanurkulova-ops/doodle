@@ -56,26 +56,6 @@ class VolumeControl:
                            (handle_x, self.y + self.height // 2),
                            self.radius)
 
-
-slider = VolumeControl(100, 150, 300)
-
-
-running = True
-while running:
-    screen.fill((30, 30, 30))
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-        slider.handle_event(event)
-
-
-
-    font = pygame.font.SysFont(None, 36)
-    text = font.render(f"Volume: {int(slider.get_level()*100)}%", True, (255, 255, 255))
-    screen.blit(text, (170, 80))
-
-    pygame.display.update()
-
-pygame.quit()
+        font = pygame.font.SysFont(None, 36)
+        text = font.render(f"Volume: {int(self.get_level() * 100)}%", True, (255, 255, 255))
+        screen.blit(text, (170, 80))
