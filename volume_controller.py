@@ -2,6 +2,7 @@ import pygame
 
 pygame.init()
 pygame.mixer.init()
+pygame.mixer.set_num_channels(3)
 
 screen = pygame.display.set_mode((500, 300))
 pygame.display.set_caption("Volume Slider")

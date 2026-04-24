@@ -6,12 +6,10 @@ from buttons import Buttons
 from controller import Controller
 from skins import Skins
 from monsters import Monster
-from slider import VolumeControl
+from volume_controller import VolumeControl
 
 
 pygame.init()
-pygame.mixer.init()
-pygame.mixer.set_num_channels(3)
 
 WIDTH, HEIGHT = 532, 850
 FPS = 90
