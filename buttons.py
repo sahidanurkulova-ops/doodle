@@ -62,24 +62,24 @@ class Buttons:
         # pygame.draw.rect(screen, (255, 0, 0), self.options_button_hitbox, 2)
         # pygame.draw.rect(screen, (255, 0, 0), self.score_button_hitbox, 2)
 
-    def update(self):
+    def update(self, gamemode):
         mouse_x, mouse_y = pygame.mouse.get_pos()
         self.click = pygame.mouse.get_pressed()
         self.cursor = pygame.Rect(mouse_x, mouse_y, 1, 1)
 
-        if self.cursor.colliderect(self.play_button_hitbox) and self.click[0]:
+        if self.cursor.colliderect(self.play_button_hitbox) and self.click[0] and gamemode == "menu":
             self.state = "game"
-        elif self.cursor.colliderect(self.toys_button_hitbox) and self.click[0]:
+        elif self.cursor.colliderect(self.toys_button_hitbox) and self.click[0] and gamemode == "menu":
             self.state = "toys"
-        elif self.cursor.colliderect(self.store_button_hitbox) and self.click[0]:
+        elif self.cursor.colliderect(self.store_button_hitbox) and self.click[0] and gamemode == "menu":
             self.state = "store"
-        elif self.cursor.colliderect(self.options_button_hitbox) and self.click[0]:
+        elif self.cursor.colliderect(self.options_button_hitbox) and self.click[0] and gamemode == "menu":
             self.state = "options"
-        elif self.cursor.colliderect(self.score_button_hitbox) and self.click[0]:
+        elif self.cursor.colliderect(self.score_button_hitbox) and self.click[0] and gamemode == "menu":
             self.state = "score"
         elif self.cursor.colliderect(self.menu_button_hitbox) and self.click[0]:
             self.state = "menu"
-        elif self.cursor.colliderect(self.choose_button_hitbox) and self.click[0]:
+        elif self.cursor.colliderect(self.choose_button_hitbox) and self.click[0] and gamemode == "menu":
             self.choose = True
 
 

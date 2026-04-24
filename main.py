@@ -118,7 +118,7 @@ while running:
             highscore = int(file.read())
 
         buttons.draw_menu_button(screen)
-        buttons.update()
+        buttons.update(controller.gamemode)
         if score > 0:
             monster.draw(screen)
             monster.shoot(player)
@@ -213,25 +213,25 @@ while running:
         background = menu_background
         screen.blit(background, (0, 0))
         buttons.draw(screen)
-        buttons.update()
+        buttons.update(controller.gamemode)
 
     elif controller.gamemode == "options":
         background = game_background
         screen.blit(background, (0, 0))
         buttons.draw_menu_button(screen)
-        buttons.update()
+        buttons.update(controller.gamemode)
 
     elif controller.gamemode == "score":
         background = game_background
         screen.blit(background, (0, 0))
         buttons.draw_menu_button(screen)
-        buttons.update()
+        buttons.update(controller.gamemode)
 
     elif controller.gamemode == "store":
         background = game_background
         screen.blit(background, (0, 0))
         buttons.draw_menu_button(screen)
-        buttons.update()
+        buttons.update(controller.gamemode)
 
     elif controller.gamemode == "toys":
         background = game_background
@@ -241,7 +241,7 @@ while running:
         skins.draw(screen)
         skins.switch(player)
         player.set_new_costume(skins)
-        buttons.update()
+        buttons.update(controller.gamemode)
 
     else:
         screen.blit(menu_background, (0, 0))
