@@ -41,7 +41,7 @@ class VolumeControl:
             mx, my = event.pos
             self.set_level((mx - self.x) / self.width)
 
-    def draw(self, screen):
+    def draw(self, screen, font):
         pygame.draw.rect(screen, (100, 100, 100),
                          (self.x, self.y, self.width, self.height))
 
@@ -56,6 +56,5 @@ class VolumeControl:
                            (handle_x, self.y + self.height // 2),
                            self.radius)
 
-        font = pygame.font.SysFont(None, 36)
-        text = font.render(f"Volume: {int(self.get_level() * 100)}%", True, (255, 255, 255))
-        screen.blit(text, (170, 80))
+        text = font.render(f"Volume: {int(self.get_level() * 100)}%", True, (0, 0, 0))
+        screen.blit(text, (170, 630))

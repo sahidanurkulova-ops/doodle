@@ -223,7 +223,7 @@ while running:
         buttons.draw_menu_button(screen)
         buttons.update(controller.gamemode)
         slider.handle_event(event)
-        slider.draw(screen)
+        slider.draw(screen, font)
 
     elif controller.gamemode == "score":
         background = game_background
