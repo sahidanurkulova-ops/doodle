@@ -112,6 +112,8 @@ class Player:
             self.hitbox.height = self.rect.height
             self.bullet_x = self.rect.x + 24
             self.bullet_y = self.rect.y
+            if self.bullet_y > 300 and self.bullet_y < 850:
+                self.bullet_visibility = False
         if self.shoot:
             self.hitbox.x = self.rect.x + 15
             self.hitbox.y = self.rect.y
