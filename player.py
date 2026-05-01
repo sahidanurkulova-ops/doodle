@@ -78,6 +78,13 @@ class Player:
         self.ghost_nose = pygame.transform.scale(self.ghost_nose, (self.nose_width, self.nose_height))
         self.doodlestein_nose = pygame.transform.scale(self.doodlestein_nose, (self.nose_width, self.nose_height))
 
+        self.bullet_x = 0
+        self.bullet_y = 0
+        self.bullet_width = 15
+        self.bullet_height = 12
+        self.bullet = pygame.image.load("assets/images/doodle_jump_bullet.png")
+        self.bullet_hitbox = pygame.Rect(self.bullet_x, self.bullet_y, self.bullet_width, self.bullet_height)
+
         self.jump_sound = pygame.mixer.Sound("assets/sounds/jump.wav")
         self.jetpack_sound = pygame.mixer.Sound("assets/sounds/jetpack3.mp3")
         self.shoot_sound = pygame.mixer.Sound("assets/sounds/pistol_shoot.mp3")
@@ -101,14 +108,18 @@ class Player:
             self.hitbox.y = self.rect.y
             self.hitbox.width = self.rect.width
             self.hitbox.height = self.rect.height
+            self.bullet_x = self.start_x
+            self.bullet_y = self.start_y
         if self.shoot:
             self.hitbox.x = self.rect.x + 15
             self.hitbox.y = self.rect.y
             self.hitbox.width = self.width_shooting - 30
             self.hitbox.height = self.rect.height
+            self.bullet_y += 1
 
     def draw(self, screen):
         screen.blit(self.image_player, (self.rect.x, self.rect.y))
+        screen.blit(self.bullet, (self.bullet_x, self.bullet_y))
 
         if self.shoot:
             if self.state != "ghost" or self.state != "doodlestein":
