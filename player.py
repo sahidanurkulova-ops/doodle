@@ -108,8 +108,8 @@ class Player:
             self.hitbox.y = self.rect.y
             self.hitbox.width = self.rect.width
             self.hitbox.height = self.rect.height
-            self.bullet_x = self.start_x
-            self.bullet_y = self.start_y
+            self.bullet_x = self.rect.x
+            self.bullet_y = self.rect.y
         if self.shoot:
             self.hitbox.x = self.rect.x + 15
             self.hitbox.y = self.rect.y
