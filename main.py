@@ -21,9 +21,6 @@ game_background = pygame.transform.scale(game_background, (WIDTH, HEIGHT))
 menu_background = pygame.image.load("assets/images/menu.png")
 menu_background = pygame.transform.scale(menu_background, (WIDTH, HEIGHT))
 
-death_sound = pygame.mixer.Sound("assets/sounds/death.mp3")
-new_highscore_sound = pygame.mixer.Sound("assets/sounds/win.mp3")
-
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_icon(logo)
 pygame.display.set_caption("Doodle Jump")
@@ -38,7 +35,7 @@ buttons = Buttons()
 controller = Controller()
 skins = Skins()
 monster = Monster()
-slider = VolumeControl(100, 700, 300)
+volume_controller = VolumeControl(100, 700, 300)
 
 
 def create_platforms():
@@ -177,7 +174,7 @@ while running:
 
             # Проигрыш
             if player.rect.top > HEIGHT or player.hitbox.colliderect(monster.projectile_hitbox):
-                death_sound.play()
+                volume_controller.death_sound.play()
                 if score > highscore:
                     save_highscore(score)
                 game_over = True
@@ -185,7 +182,7 @@ while running:
             if score > highscore:
                 highscore = score
                 if new_highscore:
-                    new_highscore_sound.play()
+                    volume_controller.new_highscore_sound.play()
                     new_highscore = False
 
         draw_platforms(platforms)
@@ -220,8 +217,8 @@ while running:
         screen.blit(background, (0, 0))
         buttons.draw_menu_button(screen)
         buttons.update(controller.gamemode)
-        slider.handle_event(event)
-        slider.draw(screen, font)
+        volume_controller.handle_event(event)
+        volume_controller.draw(screen, font)
 
     elif controller.gamemode == "score":
         background = game_background

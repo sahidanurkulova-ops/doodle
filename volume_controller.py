@@ -17,6 +17,8 @@ class VolumeControl:
         self.radius = 12
         self.level = level
         self.dragging = False
+        self.death_sound = pygame.mixer.Sound("assets/sounds/death.mp3")
+        self.new_highscore_sound = pygame.mixer.Sound("assets/sounds/win.mp3")
 
         pygame.mixer.music.set_volume(self.level)
 
