@@ -83,6 +83,7 @@ class Player:
         self.bullet_width = 15
         self.bullet_height = 12
         self.bullet_move = False
+        self.bullet_sound_played = False
         self.bullet = pygame.image.load("assets/images/doodle_jump_bullet.png")
         self.bullet_hitbox = pygame.Rect(self.bullet_x, self.bullet_y, self.bullet_width, self.bullet_height)
 
@@ -174,11 +175,14 @@ class Player:
             self.shoot = True
             self.bullet_shoot = True
             self.shooting()
-            self.shoot_sound.play()
             self.hitbox = pygame.Rect(self.start_x + 50, self.start_y, self.width_shooting, self.height)
+            if not self.bullet_sound_played:
+                self.shoot_sound.play()
+                self.bullet_sound_played = True
         else:
             self.image_player = self.image_idle
             self.shoot = False
+            self.bullet_sound_played = False
             self.hitbox = pygame.Rect(self.start_x, self.start_y, self.width_idle, self.height)
 
     def set_new_costume(self, skins):
