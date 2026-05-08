@@ -122,7 +122,7 @@ class Player:
         else:
             self.bullet_y -= 3
             if self.bullet_y < 0:
-                self.bullet_shoot = False # Comment
+                self.bullet_shoot = False
 
     def draw(self, screen):
         screen.blit(self.image_player, (self.rect.x, self.rect.y))
