@@ -82,7 +82,6 @@ class Player:
         self.bullet_y = 0
         self.bullet_width = 15
         self.bullet_height = 12
-        self.bullet_visibility = False
         self.bullet_move = False
         self.bullet = pygame.image.load("assets/images/doodle_jump_bullet.png")
         self.bullet_hitbox = pygame.Rect(self.bullet_x, self.bullet_y, self.bullet_width, self.bullet_height)
@@ -112,22 +111,15 @@ class Player:
             self.hitbox.height = self.rect.height
             self.bullet_x = self.rect.x + 24
             self.bullet_y = self.rect.y
-            if self.bullet_y > 300 and self.bullet_y < 850:
-                self.bullet_visibility = False
         if self.shoot:
             self.hitbox.x = self.rect.x + 15
             self.hitbox.y = self.rect.y
             self.hitbox.width = self.width_shooting - 30
             self.hitbox.height = self.rect.height
-            self.bullet_visibility = True
             self.bullet_y -= 3
-        if self.bullet_y > 0 and self.bullet_y < 300:
-            self.bullet_visibility = True
 
     def draw(self, screen):
         screen.blit(self.image_player, (self.rect.x, self.rect.y))
-        if self.bullet_visibility:
-            screen.blit(self.bullet, (self.bullet_x, self.bullet_y))
 
         if self.shoot:
             if self.state != "ghost" or self.state != "doodlestein":

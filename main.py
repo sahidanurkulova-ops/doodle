@@ -116,7 +116,7 @@ while running:
 
         buttons.draw_menu_button(screen)
         buttons.update(controller.gamemode)
-        if score > 0:
+        if score > 500:
             monster.draw(screen)
             monster.shoot(player)
         monster.update()
