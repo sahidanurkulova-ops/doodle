@@ -120,6 +120,7 @@ class Player:
 
     def draw(self, screen):
         screen.blit(self.image_player, (self.rect.x, self.rect.y))
+        screen.blit(self.bullet, (self.bullet_x, self.bullet_y))
 
         if self.shoot:
             if self.state != "ghost" or self.state != "doodlestein":
