@@ -92,6 +92,7 @@ class Player:
 
         self.state = "default"
         self.shoot = False
+        self.bullet_shoot = False
 
         self.image_player = self.image_idle
 
@@ -109,14 +110,19 @@ class Player:
             self.hitbox.y = self.rect.y
             self.hitbox.width = self.rect.width
             self.hitbox.height = self.rect.height
-            self.bullet_x = self.rect.x + 24
-            self.bullet_y = self.rect.y
         if self.shoot:
             self.hitbox.x = self.rect.x + 15
             self.hitbox.y = self.rect.y
             self.hitbox.width = self.width_shooting - 30
             self.hitbox.height = self.rect.height
+
+        if not self.bullet_shoot:
+            self.bullet_x = self.rect.x + 24
+            self.bullet_y = self.rect.y
+        else:
             self.bullet_y -= 3
+            if self.bullet_y < 0:
+                self.bullet_shoot = False
 
     def draw(self, screen):
         screen.blit(self.image_player, (self.rect.x, self.rect.y))
@@ -166,6 +172,7 @@ class Player:
     def switch_to_shooting(self, keys):
         if keys[pygame.K_SPACE]:
             self.shoot = True
+            self.bullet_shoot = True
             self.shooting()
             self.shoot_sound.play()
             self.hitbox = pygame.Rect(self.start_x + 50, self.start_y, self.width_shooting, self.height)
