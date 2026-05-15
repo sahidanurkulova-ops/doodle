@@ -115,7 +115,7 @@ class Player:
             self.hitbox.x = self.rect.x + 15
             self.hitbox.y = self.rect.y
             self.hitbox.width = self.width_shooting - 30
-            self.hitbox.height = self.rect.height
+            self.hitbox.height = self.rect.height # current state
 
         if not self.bullet_shoot:
             self.bullet_x = self.rect.x + 24
