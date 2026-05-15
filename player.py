@@ -1,4 +1,5 @@
 import pygame
+import copy
 pygame.mixer.init()
 
 
@@ -78,14 +79,18 @@ class Player:
         self.ghost_nose = pygame.transform.scale(self.ghost_nose, (self.nose_width, self.nose_height))
         self.doodlestein_nose = pygame.transform.scale(self.doodlestein_nose, (self.nose_width, self.nose_height))
 
-        self.bullet_x = 0
-        self.bullet_y = 0
-        self.bullet_width = 15
-        self.bullet_height = 12
-        self.bullet_move = False
-        self.bullet_sound_played = False
-        self.bullet = pygame.image.load("assets/images/doodle_jump_bullet.png")
-        self.bullet_hitbox = pygame.Rect(self.bullet_x, self.bullet_y, self.bullet_width, self.bullet_height)
+        self.bullet_parameters = {
+            "x": 0,
+            "y": 0,
+            "bullet_width": 15,
+            "bullet_height": 12,
+            "bullet_move": False,
+            "bullet_sound_played": False,
+            "bullet_image": pygame.image.load("assets/images/doodle_jump_bullet.png"),
+        }
+
+        self.bullet = pygame.Rect(self.bullet_parameters["x"], self.bullet_parameters["y"], self.bullet_parameters["bullet_width"], self.bullet_parameters["bullet_height"])
+        self.bullets = list(map(lambda _: copy.copy(self.bullet), range(10)))
 
         self.jump_sound = pygame.mixer.Sound("assets/sounds/jump.wav")
         self.jetpack_sound = pygame.mixer.Sound("assets/sounds/jetpack3.mp3")
@@ -117,17 +122,21 @@ class Player:
             self.hitbox.width = self.width_shooting - 30
             self.hitbox.height = self.rect.height # current state
 
-        if not self.bullet_shoot:
-            self.bullet_x = self.rect.x + 24
-            self.bullet_y = self.rect.y
-        else:
-            self.bullet_y -= 3
-            if self.bullet_y < 0:
-                self.bullet_shoot = False
+        for bullet in self.bullets:
+            if not self.bullet_shoot:
+                self.bullet_parameters["x"] = self.rect.x + 24
+                self.bullet_parameters["y"] = self.rect.y
+            else:
+                self.bullet_parameters["y"] -= 3
+                if self.bullet_parameters["y"] < 0:
+                    self.bullet_shoot = False
+
+        self.bullet = pygame.Rect(self.bullet_parameters["x"], self.bullet_parameters["y"],
+                                  self.bullet_parameters["bullet_width"], self.bullet_parameters["bullet_height"])
 
     def draw(self, screen):
         screen.blit(self.image_player, (self.rect.x, self.rect.y))
-        screen.blit(self.bullet, (self.bullet_x, self.bullet_y))
+        screen.blit(self.bullet_parameters["bullet_image"], (self.bullet_parameters["x"], self.bullet_parameters["x"]))
 
         if self.shoot:
             if self.state != "ghost" or self.state != "doodlestein":
@@ -176,13 +185,13 @@ class Player:
             self.bullet_shoot = True
             self.shooting()
             self.hitbox = pygame.Rect(self.start_x + 50, self.start_y, self.width_shooting, self.height)
-            if not self.bullet_sound_played:
+            if not self.bullet_parameters["sound_played"]:
                 self.shoot_sound.play()
-                self.bullet_sound_played = True
+                self.bullet_parameters["sound_played"] = True
         else:
             self.image_player = self.image_idle
             self.shoot = False
-            self.bullet_sound_played = False
+            self.bullet_parameters["sound_played"] = False
             self.hitbox = pygame.Rect(self.start_x, self.start_y, self.width_idle, self.height)
 
     def set_new_costume(self, skins):
