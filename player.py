@@ -135,7 +135,7 @@ class Player:
             if self.state == "ghost":
                 screen.blit(self.ghost_nose, (self.rect.x + 25, self.rect.y + 5))
             if self.state == "doodlestein":
-                screen.blit(self.doodlestein_nose, (self.rect.x + 25, self.rect.y + 5)) # working
+                screen.blit(self.doodlestein_nose, (self.rect.x + 25, self.rect.y + 5))
 
         self.update_hitbox()
         pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
