@@ -83,7 +83,7 @@ class Player:
         square = {
             "x": 10,
             "y": 150,
-            "size": 100,
+            "size": 13,
             "color": (255, 0, 0),
             "shoot": False
         } # reworked
@@ -128,7 +128,7 @@ class Player:
                 bullet["y"] = self.rect.y
             else:
                 bullet["y"] -= 3
-                if bullet["y"] < 0:
+                if bullet["y"] < -100:
                     bullet["shoot"] = False
 
     def draw(self, screen):
@@ -179,7 +179,7 @@ class Player:
         self.update_hitbox()
 
     def switch_to_shooting(self, keys):
-        if keys[pygame.K_SPACE] and ((self.timer - time.time()) * -1) > 1:
+        if keys[pygame.K_SPACE] and abs((self.timer - time.time())) > 1:
             self.timer = time.time()
             self.shoot = True
             self.bullet_shoot = True
