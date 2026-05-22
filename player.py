@@ -1,5 +1,6 @@
 import pygame
 import copy
+import time
 pygame.mixer.init()
 
 
@@ -107,6 +108,8 @@ class Player:
         self.jump_strength = -12
         self.player_speed = 5
 
+        self.timer = time.time()
+
     def update_hitbox(self):
         if not self.shoot:
             self.hitbox.x = self.rect.x + 20
@@ -176,7 +179,8 @@ class Player:
         self.update_hitbox()
 
     def switch_to_shooting(self, keys):
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] and ((self.timer - time.time()) * -1) > 1:
+            self.timer = time.time()
             self.shoot = True
             self.bullet_shoot = True
             for bullet in self.bullets:
