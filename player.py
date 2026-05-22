@@ -83,7 +83,8 @@ class Player:
             "x": 10,
             "y": 150,
             "size": 100,
-            "color": (255, 0, 0)
+            "color": (255, 0, 0),
+            "shoot": False
         } # reworked
 
         self.bullets = list(map(lambda _: copy.copy(square), range(10)))
@@ -119,13 +120,13 @@ class Player:
             self.hitbox.height = self.rect.height # current state
 
         for bullet in self.bullets:
-            if not self.bullet_shoot:
+            if not bullet["shoot"]:
                 bullet["x"] = self.rect.x + 24
                 bullet["y"] = self.rect.y
             else:
                 bullet["y"] -= 3
                 if bullet["y"] < 0:
-                    self.bullet_shoot = False
+                    bullet["shoot"] = False
 
     def draw(self, screen):
         screen.blit(self.image_player, (self.rect.x, self.rect.y))
@@ -178,6 +179,11 @@ class Player:
         if keys[pygame.K_SPACE]:
             self.shoot = True
             self.bullet_shoot = True
+            for bullet in self.bullets:
+                if not bullet["shoot"]:
+                    bullet["shoot"] = True
+                    break
+
             self.shooting()
             self.hitbox = pygame.Rect(self.start_x + 50, self.start_y, self.width_shooting, self.height)
             if not self.bullet_sound_played:
