@@ -84,7 +84,7 @@ class Player:
             "y": 150,
             "size": 100,
             "color": (255, 0, 0)
-        }
+        } # reworked
 
         self.bullets = list(map(lambda _: copy.copy(square), range(10)))
 
