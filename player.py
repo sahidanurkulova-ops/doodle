@@ -85,10 +85,13 @@ class Player:
             "y": 150,
             "size": 13,
             "color": (255, 0, 0),
-            "shoot": False
-        } # reworked
+            "shoot": False,
+            "hide": True
+        }
+        self.bullet_image = pygame.image.load("assets/images/doodle_jump_bullet.png")
 
         self.bullets = list(map(lambda _: copy.copy(square), range(10)))
+        self.bullet_images = list(map(lambda _: copy.copy(self.bullet_image), range(10)))
 
         self.jump_sound = pygame.mixer.Sound("assets/sounds/jump.wav")
         self.jetpack_sound = pygame.mixer.Sound("assets/sounds/jetpack3.mp3")
@@ -136,6 +139,9 @@ class Player:
         if self.bullet_shoot:
             for bullet in self.bullets:
                 pygame.draw.rect(screen,bullet["color"],(bullet["x"], bullet["y"], bullet["size"], bullet["size"]))
+                for bullet_image in self.bullet_images:
+                    if not bullet["hide"]:
+                        screen.blit(bullet_image, (bullet["x"], bullet["y"]))
 
         if self.shoot:
             if self.state != "ghost" or self.state != "doodlestein":
@@ -146,7 +152,7 @@ class Player:
                 screen.blit(self.doodlestein_nose, (self.rect.x + 25, self.rect.y + 5))
 
         self.update_hitbox()
-        pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
+        # pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
 
     def move(self, keys, screen_width):
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
@@ -186,6 +192,7 @@ class Player:
             for bullet in self.bullets:
                 if not bullet["shoot"]:
                     bullet["shoot"] = True
+                    bullet["hide"] = False
                     break
 
             self.shooting()
