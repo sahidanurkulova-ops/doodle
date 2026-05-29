@@ -130,7 +130,7 @@ class Player:
                 bullet["x"] = self.rect.x + 24
                 bullet["y"] = self.rect.y
             else:
-                bullet["y"] -= 3
+                bullet["y"] -= 10
                 if bullet["y"] < -100:
                     bullet["shoot"] = False
 
@@ -185,7 +185,7 @@ class Player:
         self.update_hitbox()
 
     def switch_to_shooting(self, keys):
-        if keys[pygame.K_SPACE] and abs((self.timer - time.time())) > 1:
+        if keys[pygame.K_SPACE] and abs((self.timer - time.time())) > 0.2:
             self.timer = time.time()
             self.shoot = True
             self.bullet_shoot = True

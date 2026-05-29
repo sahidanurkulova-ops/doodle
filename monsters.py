@@ -19,6 +19,7 @@ class Monster:
         self.direction = "right"
 
         self.shooting = False
+        self.alive = True
 
         self.assets = pygame.image.load("assets/images/game_tile_doodlejump.png")
 
@@ -62,16 +63,18 @@ class Monster:
         self.image = self.costumes[int(self.counter) % 5]
         for bullet in bullets:
             if bullet["y"] < self.y + self.height and bullet["x"] > self.x and bullet["x"] < self.x + self.width:
-                print("Hit!")
+                self.alive = False
+                self.shooting = False
 
         if not self.shooting:
             self.projectile_x = self.x + 17
 
     def draw(self, screen):
-        screen.blit(self.image, (self.x, self.y))
-        screen.blit(self.projectile, (self.projectile_x, self.projectile_y))
-        pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
-        pygame.draw.rect(screen, (255, 0, 0), self.projectile_hitbox, 2)
+        if self.alive:
+            screen.blit(self.image, (self.x, self.y))
+            screen.blit(self.projectile, (self.projectile_x, self.projectile_y))
+            pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
+            pygame.draw.rect(screen, (255, 0, 0), self.projectile_hitbox, 2)
 
     def shoot(self, player):
         if self.projectile_x > player.hitbox.x - 10 and self.projectile_x < player.hitbox.x + 10:
