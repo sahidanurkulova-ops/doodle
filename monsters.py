@@ -45,7 +45,7 @@ class Monster:
 
         self.projectile_hitbox = pygame.Rect(self.projectile_x, self.projectile_y, self.projectile_width, self.projectile_height)
 
-    def update(self):
+    def update(self, bullets):
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.hitbox = self.rect.copy()
         self.projectile_hitbox = pygame.Rect(self.projectile_x, self.projectile_y, self.projectile_width, self.projectile_height)
@@ -60,6 +60,10 @@ class Monster:
 
         self.counter += 0.1
         self.image = self.costumes[int(self.counter) % 5]
+        for bullet in bullets:
+            if bullet["y"] > self.y + self.height and bullet["x"] > self.x and bullet["x"] < self.x + self.width:
+                self.shooting = False
+
 
         if self.shooting == False:
             self.projectile_x = self.x + 17

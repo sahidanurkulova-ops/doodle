@@ -116,10 +116,10 @@ while running:
 
         buttons.draw_menu_button(screen)
         buttons.update(controller.gamemode)
-        if score > 500:
+        if score > 100:
             monster.draw(screen)
             monster.shoot(player)
-        monster.update()
+        monster.update(player.bullets)
 
         keyboard = pygame.key.get_pressed()
 
