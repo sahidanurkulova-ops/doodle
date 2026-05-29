@@ -61,11 +61,10 @@ class Monster:
         self.counter += 0.1
         self.image = self.costumes[int(self.counter) % 5]
         for bullet in bullets:
-            if bullet["y"] > self.y + self.height and bullet["x"] > self.x and bullet["x"] < self.x + self.width:
-                self.shooting = False
+            if bullet["y"] < self.y + self.height and bullet["x"] > self.x and bullet["x"] < self.x + self.width:
+                print("Hit!")
 
-
-        if self.shooting == False:
+        if not self.shooting:
             self.projectile_x = self.x + 17
 
     def draw(self, screen):
