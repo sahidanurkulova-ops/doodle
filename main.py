@@ -82,6 +82,7 @@ def reset_game():
     platforms = create_platforms()
     score = 0
     game_over = False
+    monster.alive = True
 
 def save_highscore(score):
     with open("highscore.txt", "w") as file:

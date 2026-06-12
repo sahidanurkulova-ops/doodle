@@ -129,6 +129,7 @@ class Player:
             if not bullet["shoot"]:
                 bullet["x"] = self.rect.x + 24
                 bullet["y"] = self.rect.y
+                bullet["hide"] = True
             else:
                 bullet["y"] -= 10
                 if bullet["y"] < -100:
@@ -138,7 +139,7 @@ class Player:
         screen.blit(self.image_player, (self.rect.x, self.rect.y))
         if self.bullet_shoot:
             for bullet in self.bullets:
-                pygame.draw.rect(screen,bullet["color"],(bullet["x"], bullet["y"], bullet["size"], bullet["size"]))
+                # pygame.draw.rect(screen,bullet["color"],(bullet["x"], bullet["y"], bullet["size"], bullet["size"]))
                 for bullet_image in self.bullet_images:
                     if not bullet["hide"]:
                         screen.blit(bullet_image, (bullet["x"], bullet["y"]))
@@ -159,6 +160,8 @@ class Player:
             self.rect.x -= self.player_speed
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.rect.x += self.player_speed
+            self.image_player = pygame.transform.flip(self.image_player, True, False)
+            print("222222222")
 
         if self.rect.right < 0:
             self.rect.left = screen_width

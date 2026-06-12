@@ -73,8 +73,8 @@ class Monster:
         if self.alive:
             screen.blit(self.image, (self.x, self.y))
             screen.blit(self.projectile, (self.projectile_x, self.projectile_y))
-            pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
-            pygame.draw.rect(screen, (255, 0, 0), self.projectile_hitbox, 2)
+            # pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
+            # pygame.draw.rect(screen, (255, 0, 0), self.projectile_hitbox, 2)
 
     def shoot(self, player):
         if self.projectile_x > player.hitbox.x - 10 and self.projectile_x < player.hitbox.x + 10:

@@ -39,4 +39,4 @@ class Platform:
     def draw(self, screen):
         self.update()
         screen.blit(self.image, (self.x, self.y))
-        pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
+        # pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
