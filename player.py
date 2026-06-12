@@ -193,7 +193,7 @@ class Player:
         self.image_player = self.image_idle
         self.update_hitbox()
 
-    def switch_to_shooting(self, keys):
+    def switch_to_shooting(self, keys, screen):
         if keys[pygame.K_SPACE] and abs((self.timer - time.time())) > 0.2:
             self.timer = time.time()
             self.shoot = True
@@ -216,6 +216,12 @@ class Player:
         for bullet in self.bullets:
             if bullet["shoot"]:
                 self.shooting()
+                if self.state != "ghost" or self.state != "doodlestein":
+                    screen.blit(self.nose, (self.rect.x + 25, self.rect.y + 5))
+                if self.state == "ghost":
+                    screen.blit(self.ghost_nose, (self.rect.x + 25, self.rect.y + 5))
+                if self.state == "doodlestein":
+                    screen.blit(self.doodlestein_nose, (self.rect.x + 25, self.rect.y + 5))
 
     def set_new_costume(self, skins):
         skins.transform_to_playable()

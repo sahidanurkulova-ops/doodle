@@ -128,7 +128,7 @@ while running:
             player.move(keyboard, WIDTH)
             player.apply_gravity()
             player.set_idle_image_by_state()
-            player.switch_to_shooting(keyboard)
+            player.switch_to_shooting(keyboard, screen)
 
             # Столкновение с платформами только при падении вниз
             if player.vel_y > 0:
