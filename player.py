@@ -112,6 +112,7 @@ class Player:
         self.player_speed = 5
 
         self.timer = time.time()
+        self.direction = "left"
 
     def update_hitbox(self):
         if not self.shoot:
@@ -136,7 +137,12 @@ class Player:
                     bullet["shoot"] = False
 
     def draw(self, screen):
-        screen.blit(self.image_player, (self.rect.x, self.rect.y))
+        if self.direction == "left":
+            screen.blit(self.image_player, (self.rect.x, self.rect.y))
+        else:
+            self.image_player = pygame.transform.flip(self.image_player, True, False)
+            screen.blit(self.image_player, (self.rect.x, self.rect.y))
+
         if self.bullet_shoot:
             for bullet in self.bullets:
                 # pygame.draw.rect(screen,bullet["color"],(bullet["x"], bullet["y"], bullet["size"], bullet["size"]))
@@ -158,10 +164,10 @@ class Player:
     def move(self, keys, screen_width):
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.rect.x -= self.player_speed
+            self.direction = "left"
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.rect.x += self.player_speed
-            self.image_player = pygame.transform.flip(self.image_player, True, False)
-            print("222222222")
+            self.direction = "right"
 
         if self.rect.right < 0:
             self.rect.left = screen_width
