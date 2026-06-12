@@ -203,8 +203,6 @@ class Player:
                     bullet["shoot"] = True
                     bullet["hide"] = False
                     break
-
-            self.shooting()
             self.hitbox = pygame.Rect(self.start_x + 50, self.start_y, self.width_shooting, self.height)
             if not self.bullet_sound_played:
                 self.shoot_sound.play()
@@ -214,6 +212,10 @@ class Player:
             self.shoot = False
             self.bullet_sound_played = False
             self.hitbox = pygame.Rect(self.start_x, self.start_y, self.width_idle, self.height)
+
+        for bullet in self.bullets:
+            if bullet["shoot"]:
+                self.shooting()
 
     def set_new_costume(self, skins):
         skins.transform_to_playable()
