@@ -62,7 +62,7 @@ class Monster:
         self.counter += 0.1
         self.image = self.costumes[int(self.counter) % 5]
         for bullet in bullets:
-            if bullet["y"] < self.y + self.height and bullet["x"] > self.x and bullet["x"] < self.x + self.width:
+            if bullet["y"] < self.y + self.height and self.x < bullet["x"] < self.x + self.width:
                 self.alive = False
                 self.shooting = False
 
@@ -77,7 +77,7 @@ class Monster:
             # pygame.draw.rect(screen, (255, 0, 0), self.projectile_hitbox, 2)
 
     def shoot(self, player):
-        if self.projectile_x > player.hitbox.x - 10 and self.projectile_x < player.hitbox.x + 10:
+        if player.hitbox.x - 10 < self.projectile_x < player.hitbox.x + 10:
             self.shooting = True
         if self.shooting:
             self.projectile_y += 3

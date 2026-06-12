@@ -174,7 +174,13 @@ while running:
                 generate_new_platform(platforms)
 
             # Проигрыш
-            if player.rect.top > HEIGHT or player.hitbox.colliderect(monster.projectile_hitbox):
+            if player.rect.top > HEIGHT:
+                volume_controller.death_sound.play()
+                if score > highscore:
+                    save_highscore(score)
+                game_over = True
+
+            if player.hitbox.colliderect(monster.projectile_hitbox) and not monster.shooting:
                 volume_controller.death_sound.play()
                 if score > highscore:
                     save_highscore(score)
