@@ -3,7 +3,7 @@ pygame.mixer.init()
 
 
 class Monster:
-    def __init__(self):
+    def __init__(self, player_y):
         self.x = 10
         self.y = 100
         self.width = 75
@@ -14,17 +14,18 @@ class Monster:
         self.projectile_width = 45
         self.projectile_height = 34
 
-        self.monster_obstacle_x = 0
-        self.monster_obstacle_y = 0
+        self.monster_obstacle_x = 100
         self.monster_obstacle_width = 70
         self.monster_obstacle_height = 92
 
-        self.type_monster = "flying_1"
+        self.type_monster = {"flying_1",
+                             "obstacle_1"}
 
         self.direction = "right"
 
         self.shooting = False
         self.alive = True
+        self.alive_2 = True
 
         self.assets = pygame.image.load("assets/images/game_tile_doodlejump.png")
 
@@ -45,7 +46,7 @@ class Monster:
         self.costumes_2 = [self.monster_obstacle_1, self.monster_obstacle_2]
 
         self.counter = 0
-        self.counter_1 = 0
+        self.counter_2 = 0
         self.image = self.costumes[self.counter]
         self.monster_obstacle_image = self.costumes_2[self.counter]
 
@@ -58,7 +59,7 @@ class Monster:
 
         self.projectile_hitbox = pygame.Rect(self.projectile_x, self.projectile_y, self.projectile_width, self.projectile_height)
 
-        self.monster_obstacle_hitbox = pygame.Rect(self.monster_obstacle_x, self.monster_obstacle_y, self.monster_obstacle_width, self.monster_obstacle_height)
+        self.monster_obstacle_hitbox = pygame.Rect(self.monster_obstacle_x, player_y, self.monster_obstacle_width, self.monster_obstacle_height)
 
     def update(self, bullets):
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
@@ -75,8 +76,8 @@ class Monster:
 
         self.counter += 0.1
         self.image = self.costumes[int(self.counter) % 5]
-        self.counter_1 += 0.05
-        self.monster_obstacle_image = self.costumes_2[int(self.counter) % 2]
+        self.counter_2 += 0.05
+        self.monster_obstacle_image = self.costumes_2[int(self.counter_2) % 2]
         for bullet in bullets:
             if bullet["y"] < self.y + self.height and self.x < bullet["x"] < self.x + self.width:
                 self.alive = False
@@ -85,14 +86,16 @@ class Monster:
         if not self.shooting:
             self.projectile_x = self.x + 17
 
-    def draw(self, screen):
+    def draw(self, screen, score, player_y):
         if self.alive:
             screen.blit(self.image, (self.x, self.y))
             screen.blit(self.projectile, (self.projectile_x, self.projectile_y))
-            screen.blit(self.monster_obstacle_image, (self.monster_obstacle_x, self.monster_obstacle_y))
             pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
             pygame.draw.rect(screen, (255, 0, 0), self.projectile_hitbox, 2)
-            pygame.draw.rect(screen, (255, 0, 0), self.monster_obstacle_hitbox, 2)
+        if self.alive_2:
+            if score > 600:
+                screen.blit(self.monster_obstacle_image, (self.monster_obstacle_x, player_y))
+                pygame.draw.rect(screen, (255, 0, 0), self.monster_obstacle_hitbox, 2)
 
     def shoot(self, player):
         if player.hitbox.x - 10 < self.projectile_x < player.hitbox.x + 10:
