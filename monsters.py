@@ -14,6 +14,11 @@ class Monster:
         self.projectile_width = 45
         self.projectile_height = 34
 
+        self.monster_obstacle_x = 0
+        self.monster_obstacle_y = 0
+        self.monster_obstacle_width = 70
+        self.monster_obstacle_height = 92
+
         self.type_monster = "flying_1"
 
         self.direction = "right"
@@ -25,6 +30,9 @@ class Monster:
 
         self.projectile = self.assets.subsurface(149, 266, self.projectile_width, self.projectile_height)
 
+        self.monster_obstacle_1 = self.assets.subsurface(65, 0, self.monster_obstacle_width, self.monster_obstacle_height)
+        self.monster_obstacle_2 = self.assets.subsurface(65, 93, self.monster_obstacle_width, self.monster_obstacle_height)
+
         self.flying_monster_1 = self.assets.subsurface(149, 0, self.width, self.height)
         self.flying_monster_2 = self.assets.subsurface(228, 0, self.width, self.height)
         self.flying_monster_3 = self.assets.subsurface(309, 0, self.width, self.height)
@@ -34,17 +42,23 @@ class Monster:
         self.costumes = [self.flying_monster_1, self.flying_monster_2, self.flying_monster_3,
                          self.flying_monster_4, self.flying_monster_5]
 
+        self.costumes_2 = [self.monster_obstacle_1, self.monster_obstacle_2]
+
         self.counter = 0
+        self.counter_1 = 0
         self.image = self.costumes[self.counter]
+        self.monster_obstacle_image = self.costumes_2[self.counter]
 
         if self.type_monster == "flying_1":
-            self.image = self.flying_monster_2
+            self.image = self.flying_monster_1
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
         self.hitbox = self.rect.copy()
 
         self.projectile_hitbox = pygame.Rect(self.projectile_x, self.projectile_y, self.projectile_width, self.projectile_height)
+
+        self.monster_obstacle_hitbox = pygame.Rect(self.monster_obstacle_x, self.monster_obstacle_y, self.monster_obstacle_width, self.monster_obstacle_height)
 
     def update(self, bullets):
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
@@ -61,6 +75,8 @@ class Monster:
 
         self.counter += 0.1
         self.image = self.costumes[int(self.counter) % 5]
+        self.counter_1 += 0.05
+        self.monster_obstacle_image = self.costumes_2[int(self.counter) % 2]
         for bullet in bullets:
             if bullet["y"] < self.y + self.height and self.x < bullet["x"] < self.x + self.width:
                 self.alive = False
@@ -73,8 +89,10 @@ class Monster:
         if self.alive:
             screen.blit(self.image, (self.x, self.y))
             screen.blit(self.projectile, (self.projectile_x, self.projectile_y))
+            screen.blit(self.monster_obstacle_image, (self.monster_obstacle_x, self.monster_obstacle_y))
             pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
             pygame.draw.rect(screen, (255, 0, 0), self.projectile_hitbox, 2)
+            pygame.draw.rect(screen, (255, 0, 0), self.monster_obstacle_hitbox, 2)
 
     def shoot(self, player):
         if player.hitbox.x - 10 < self.projectile_x < player.hitbox.x + 10:
