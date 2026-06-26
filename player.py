@@ -2,6 +2,7 @@ import pygame
 import copy
 import time
 pygame.mixer.init()
+pygame.mixer.music.set_volume(0.0)
 
 
 class Player:
@@ -178,9 +179,10 @@ class Player:
         self.vel_y += self.gravity
         self.rect.y += self.vel_y
 
-    def do_jump(self):
+    def do_jump(self, level):
         self.vel_y = self.jump_strength
         try:
+            self.jump_sound.set_volume(level)
             self.jump_sound.play()
         except:
             pass
@@ -193,7 +195,7 @@ class Player:
         self.image_player = self.image_idle
         self.update_hitbox()
 
-    def switch_to_shooting(self, keys, screen):
+    def switch_to_shooting(self, keys, screen, level):
         if keys[pygame.K_SPACE] and abs((self.timer - time.time())) > 0.2:
             self.timer = time.time()
             self.shoot = True
@@ -205,6 +207,7 @@ class Player:
                     break
             self.hitbox = pygame.Rect(self.start_x + 50, self.start_y, self.width_shooting, self.height)
             if not self.bullet_sound_played:
+                self.shoot_sound.set_volume(level)
                 self.shoot_sound.play()
                 self.bullet_sound_played = True
         else:

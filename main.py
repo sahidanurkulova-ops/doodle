@@ -117,7 +117,7 @@ while running:
 
         buttons.draw_menu_button(screen)
         buttons.update(controller.gamemode)
-        if score > 100:
+        if score > 658:
             monster.draw(screen)
             monster.shoot(player)
         monster.update(player.bullets)
@@ -128,7 +128,7 @@ while running:
             player.move(keyboard, WIDTH)
             player.apply_gravity()
             player.set_idle_image_by_state()
-            player.switch_to_shooting(keyboard, screen)
+            player.switch_to_shooting(keyboard, screen, volume_controller.level)
 
             # Столкновение с платформами только при падении вниз
             if player.vel_y > 0:
@@ -142,7 +142,7 @@ while running:
                         and player.rect.left < platform_rect.right
                     ):
                         player.rect.bottom = platform_rect.top
-                        player.do_jump()
+                        player.do_jump(volume_controller.level)
                         break
 
             # Прокрутка мира вверх
@@ -175,12 +175,14 @@ while running:
 
             # Проигрыш
             if player.rect.top > HEIGHT:
+                volume_controller.death_sound.set_volume(volume_controller.level)
                 volume_controller.death_sound.play()
                 if score > highscore:
                     save_highscore(score)
                 game_over = True
 
             if player.hitbox.colliderect(monster.projectile_hitbox) and not monster.shooting:
+                volume_controller.death_sound.set_volume(volume_controller.level)
                 volume_controller.death_sound.play()
                 if score > highscore:
                     save_highscore(score)
@@ -189,6 +191,7 @@ while running:
             if score > highscore:
                 highscore = score
                 if new_highscore:
+                    volume_controller.death_sound.set_volume(volume_controller.level)
                     volume_controller.new_highscore_sound.play()
                     new_highscore = False
 
