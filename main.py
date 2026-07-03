@@ -38,19 +38,13 @@ monster = Monster(player.rect.y)
 volume_controller = VolumeControl(100, 700, 300)
 
 def create_platforms():
-    y = random.randint(1, 10)
-    if y == 10:
-        result = [Platform("breaking", 215, 810)]
-    else:
-        result = [Platform("green", 215, 810)]
+    result = []
 
     current_y = 720
     for _ in range(8):
         x = random.randint(0, WIDTH - 100)
-        if y == 10:
-            result.append(Platform("breaking", x, current_y))
-        else:
-            result.append(Platform("green", x, current_y))
+        result.append(Platform("green", x, current_y))
+        print("green")
         current_y -= random.randint(70, 110)
 
     return result
