@@ -4,7 +4,6 @@ import time
 pygame.mixer.init()
 pygame.mixer.music.set_volume(0.0)
 
-
 class Player:
     def __init__(self):
         self.start_x = 235

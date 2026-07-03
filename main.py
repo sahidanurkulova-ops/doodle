@@ -37,7 +37,6 @@ skins = Skins()
 monster = Monster(player.rect.y)
 volume_controller = VolumeControl(100, 700, 300)
 
-
 def create_platforms():
     result = [Platform("green", 215, 810)]
 
