@@ -34,7 +34,7 @@ player = Player()
 buttons = Buttons()
 controller = Controller()
 skins = Skins()
-monster = Monster()
+monster = Monster(player.rect.y)
 volume_controller = VolumeControl(100, 700, 300)
 
 
@@ -44,7 +44,11 @@ def create_platforms():
     current_y = 720
     for _ in range(8):
         x = random.randint(0, WIDTH - 100)
-        result.append(Platform("green", x, current_y))
+        y = random.randint(0, 9)
+        if y == 10:
+            result.append(Platform("breaking", x, current_y))
+        else:
+            result.append(Platform("green", x, current_y))
         current_y -= random.randint(70, 110)
 
     return result
@@ -118,7 +122,7 @@ while running:
         buttons.draw_menu_button(screen)
         buttons.update(controller.gamemode)
         if score > 100:
-            monster.draw(screen, score)
+            monster.draw(screen, score, player.rect.y)
             monster.shoot(player)
         monster.update(player.bullets)
 
