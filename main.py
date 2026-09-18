@@ -42,9 +42,9 @@ def create_platforms():
 
     current_y = 720
     for _ in range(8):
-        y = random.randint(1, 10)
+        y = random.randint(1, 100)
         x = random.randint(0, WIDTH - 100)
-        if y >= 1 and y <= 5:
+        if y >= 1 and y <= 70:
             result.append(Platform(WIDTH, "green", x, current_y))
             print("green")
         else:
@@ -78,7 +78,13 @@ def generate_new_platform(platforms):
     highest_y = min(get_platform_rect(p).y for p in platforms)
     x = random.randint(0, WIDTH - 100)
     y = highest_y - random.randint(70, 110)
-    platforms.append(Platform(WIDTH, "green", x, y))
+    z = random.randint(1, 100)
+    if z >= 1 and z <= 70:
+        platforms.append(Platform(WIDTH, "green", x, y))
+    elif z >= 71 and z <= 90:
+        platforms.append(Platform(WIDTH, "blue", x, y))
+    else:
+        platforms.append(Platform(WIDTH, "breaking", x, y))
 
 
 def reset_game():
