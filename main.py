@@ -86,7 +86,6 @@ def generate_new_platform(platforms):
     else:
         platforms.append(Platform("breaking", x, y))
 
-
 def reset_game():
     global platforms, score, game_over
     player.reset()

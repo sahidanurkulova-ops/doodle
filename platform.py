@@ -70,7 +70,8 @@ class Platform:
 
         if self.broken:
             self.counter += 0.1
-        self.image = self.platform_breaking_costumes[int(self.counter) % 4]
+        if self.color == "breaking":
+            self.image = self.platform_breaking_costumes[int(self.counter) % 4]
 
     def draw(self, screen):
         self.update()
