@@ -155,9 +155,10 @@ while running:
                         and player.rect.left < platform_rect.right
                     ):
                         player.rect.bottom = platform_rect.top
-                        player.do_jump(volume_controller.level)
-                        print("touch", platform.color)
-                        platform.broken = True
+                        if not platform.broken:
+                            player.do_jump(volume_controller.level)
+                        if platform.color == "breaking":
+                            platform.broken = True
                         break
 
             # Прокрутка мира вверх

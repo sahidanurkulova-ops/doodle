@@ -28,13 +28,13 @@ class Platform:
         self.platform_breaking_1 = self.assets_2.subsurface(0, 70, self.width_breaking, self.height_breaking)
         self.platform_breaking_1 = pygame.transform.scale(self.platform_breaking_1,
                                                           (self.double_width_breaking, self.double_height_breaking))
-        self.platform_breaking_2 = self.assets_2.subsurface(0, 90, self.width_breaking, self.height_breaking)
+        self.platform_breaking_2 = self.assets_2.subsurface(0, 90, self.width_breaking, self.height_breaking + 5)
         self.platform_breaking_2 = pygame.transform.scale(self.platform_breaking_2,
                                                           (self.double_width_breaking, self.double_height_breaking))
-        self.platform_breaking_3 = self.assets_2.subsurface(0, 120, self.width_breaking, self.height_breaking)
+        self.platform_breaking_3 = self.assets_2.subsurface(0, 118, self.width_breaking, self.height_breaking + 9)
         self.platform_breaking_3 = pygame.transform.scale(self.platform_breaking_3,
                                                           (self.double_width_breaking, self.double_height_breaking))
-        self.platform_breaking_4 = self.assets_2.subsurface(0, 150, self.width_breaking, self.height_breaking)
+        self.platform_breaking_4 = self.assets_2.subsurface(0, 148, self.width_breaking, self.height_breaking + 14)
         self.platform_breaking_4 = pygame.transform.scale(self.platform_breaking_4,
                                                           (self.double_width_breaking, self.double_height_breaking))
 
@@ -72,6 +72,7 @@ class Platform:
             self.counter += 0.1
             if self.counter > 3:
                 self.counter = 3
+                self.y += 1
         if self.color == "breaking":
             self.image = self.platform_breaking_costumes[int(self.counter) % 4]
 
