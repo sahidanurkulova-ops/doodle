@@ -70,6 +70,8 @@ class Platform:
 
         if self.broken:
             self.counter += 0.1
+            if self.counter > 3:
+                self.counter = 3
         if self.color == "breaking":
             self.image = self.platform_breaking_costumes[int(self.counter) % 4]
 

@@ -42,9 +42,12 @@ def create_platforms():
 
     current_y = 720
     for _ in range(8):
-        y = random.randint(1, 100)
+        # y = random.randint(1, 100)
+        y = -1
         x = random.randint(0, WIDTH - 100)
-        if y >= 1 and y <= 70:
+        if y == -1:
+            result.append(Platform("breaking", x, current_y))
+        elif y >= 1 and y <= 70:
             result.append(Platform("green", x, current_y))
             print("green")
         else:
@@ -153,6 +156,8 @@ while running:
                     ):
                         player.rect.bottom = platform_rect.top
                         player.do_jump(volume_controller.level)
+                        print("touch", platform.color)
+                        platform.broken = True
                         break
 
             # Прокрутка мира вверх
