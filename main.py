@@ -38,13 +38,18 @@ monster = Monster(player.rect.y)
 volume_controller = VolumeControl(100, 700, 300)
 
 def create_platforms():
-    result = []
+    result = [Platform(WIDTH, "green", 225, 670)]
 
     current_y = 720
     for _ in range(8):
+        y = random.randint(1, 10)
         x = random.randint(0, WIDTH - 100)
-        result.append(Platform("green", x, current_y))
-        print("green")
+        if y >= 1 and y <= 5:
+            result.append(Platform(WIDTH, "green", x, current_y))
+            print("green")
+        else:
+            result.append(Platform(WIDTH, "blue", x, current_y))
+            print("blue")
         current_y -= random.randint(70, 110)
 
     return result
@@ -73,7 +78,7 @@ def generate_new_platform(platforms):
     highest_y = min(get_platform_rect(p).y for p in platforms)
     x = random.randint(0, WIDTH - 100)
     y = highest_y - random.randint(70, 110)
-    platforms.append(Platform("green", x, y))
+    platforms.append(Platform(WIDTH, "green", x, y))
 
 
 def reset_game():
@@ -117,7 +122,7 @@ while running:
 
         buttons.draw_menu_button(screen)
         buttons.update(controller.gamemode)
-        if score > 100:
+        if score > 500:
             monster.draw(screen, score, player.rect.y)
             monster.shoot(player)
         monster.update(player.bullets)

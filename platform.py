@@ -1,11 +1,13 @@
 import pygame
+import random
 
 
 class Platform:
-    def __init__(self, color, x, y):
+    def __init__(self, screen_width, color, x, y):
         self.color = color
         self.x = x
         self.y = y
+        self.screen_width = screen_width
 
         self.width_green = 115
         self.height_green = 30
@@ -42,16 +44,20 @@ class Platform:
                                            self.platform_breaking_4]
 
         self.counter = 0
-        self.image = self.platform_breaking_costumes[self.counter]
+        self.breaking_image = self.platform_breaking_costumes
 
         self.broken = False
+        self.speed = 0.5
+        self.direction = random.choice(["left", "right"])
 
         if self.color == "green":
             self.image = self.platform_green
             self.width = self.width_green
             self.height = self.height_green
-        if self.color == "breaking":
-            self.image = self.image
+        elif self.color == "breaking":
+            self.image = self.breaking_image
+            self.width = self.double_width_breaking
+            self.height = self.double_height_breaking
         else:
             self.image = self.platform_blue
             self.width = self.width_blue
@@ -68,7 +74,18 @@ class Platform:
 
         if self.broken:
             self.counter += 0.1
-        self.image = self.platform_breaking_costumes[int(self.counter) % 4]
+            self.image = self.platform_breaking_costumes[int(self.counter) % 4]
+
+        if self.color == "blue":
+            if self.x > self.screen_width - self.width:
+                self.direction = "left"
+            if self.x < 0:
+                self.direction = "right"
+
+            if self.direction == "right":
+                self.x += self.speed
+            else:
+                self.x -= self.speed
 
     def draw(self, screen):
         self.update()
