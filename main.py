@@ -81,7 +81,7 @@ def generate_new_platform(platforms):
     highest_y = min(get_platform_rect(p).y for p in platforms)
     x = random.randint(0, WIDTH - 100)
     y = highest_y - random.randint(70, 110)
-    z = 75
+    z = random.randint(1, 100)
     if z >= 1 and z <= 70:
         platforms.append(Platform("green", x, y))
     elif z >= 71 and z <= 90:
