@@ -75,6 +75,16 @@ class Platform:
                 self.y += 1
         if self.color == "breaking":
             self.image = self.platform_breaking_costumes[int(self.counter) % 4]
+        if self.color == "blue":
+            if self.x > self.screen_width - self.width:
+                self.direction = "left"
+            if self.x < 0:
+                self.direction = "right"
+
+            if self.direction == "right":
+                self.x += self.speed
+            else:
+                self.x -= self.speed
 
     def draw(self, screen):
         self.update()
