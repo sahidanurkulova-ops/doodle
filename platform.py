@@ -46,8 +46,8 @@ class Platform:
         self.image = self.platform_breaking_costumes[self.counter]
 
         self.broken = False
-        self.screen_width = 0
-        self.speed = 3
+        self.screen_width = 532
+        self.speed = 2
         self.direction = random.choice(["right", "left"])
 
         if self.color == "green":
