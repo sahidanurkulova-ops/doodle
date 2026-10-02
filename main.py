@@ -239,9 +239,13 @@ while running:
         background = game_background
         screen.blit(background, (0, 0))
         buttons.draw_menu_button(screen)
+        buttons.draw_reset_hscore_button(screen)
         buttons.update(controller.gamemode)
         volume_controller.handle_event(event)
         volume_controller.draw(screen, font)
+        if buttons.highscore_switch == 1:
+            with open("highscore.txt", "w") as file:
+                file.write(str(0))
 
     elif controller.gamemode == "score":
         background = game_background

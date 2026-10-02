@@ -12,6 +12,7 @@ class Buttons:
                                    "right_button": {"x": 422, "y": 375},
                                    "left_button": {"x": 10, "y": 375},
                                    "choose_button": {"x": 216, "y": 600},
+                                   "reset_hscore_button": {"x": 166, "y": 530},
                                    }
         self.main_width, self.main_height = 195, 72
         self.side_width, self.side_height = 90, 104
@@ -38,8 +39,13 @@ class Buttons:
         self.choose_button = pygame.transform.scale(self.choose_button, (self.button_width, self.button_height))
         self.choose_button_hitbox = pygame.Rect(self.button_coordinates["choose_button"]["x"], self.button_coordinates["choose_button"]["y"], self.button_height, self.button_width)
 
+        self.reset_hscore_button = pygame.image.load("assets/images/button_reset_hscore.png")
+        self.reset_hscore_button = pygame.transform.scale(self.reset_hscore_button, (self.main_width, self.main_height + 30))
+
         self.state = "menu"
         self.choose = False
+        self.reset_hscore = False
+        self.highscore_switch = 0
 
     def draw(self, screen):
         screen.blit(self.play_button_image, (self.button_coordinates["play_button"]["x"], self.button_coordinates["play_button"]["y"]))
@@ -54,6 +60,7 @@ class Buttons:
         self.store_button_hitbox = pygame.Rect(self.button_coordinates["store_button"]["x"], self.button_coordinates["store_button"]["y"], self.side_width, self.side_height)
         self.options_button_hitbox = pygame.Rect(self.button_coordinates["options_button"]["x"], self.button_coordinates["options_button"]["y"], self.side_width, self.side_height)
         self.score_button_hitbox = pygame.Rect(self.button_coordinates["score_button"]["x"], self.button_coordinates["score_button"]["y"], self.side_width, self.side_height)
+        self.reset_hscore_button_hitbox = pygame.Rect(self.button_coordinates["reset_hscore_button"]["x"], self.button_coordinates["reset_hscore_button"]["y"], self.main_width, self.main_height)
 
         # pygame.draw.rect(screen, (255, 0, 0), self.play_button_hitbox, 2)
         # pygame.draw.rect(screen, (255, 0, 0), self.toys_button_hitbox, 2)
@@ -81,7 +88,14 @@ class Buttons:
             self.state = "menu"
         elif self.cursor.colliderect(self.choose_button_hitbox) and self.click[0] and gamemode == "menu":
             self.choose = True
+        elif self.cursor.colliderect(self.reset_hscore_button_hitbox) and self.click[0] and gamemode == "options":
+            self.reset_hscore = True
 
+        if self.reset_hscore == True:
+            self.reset_hscore = False
+            self.highscore_switch = 1
+        elif self.reset_hscore == False:
+            self.highscore_switch = 0
 
 
     def set_gamemode(self, gamemode):
@@ -90,6 +104,9 @@ class Buttons:
     def draw_menu_button(self, screen):
         screen.blit(self.menu_button_image, (self.button_coordinates["menu_button"]["x"], self.button_coordinates["menu_button"]["y"]))
 
+    def draw_reset_hscore_button(self, screen):
+        screen.blit(self.reset_hscore_button, (self.button_coordinates["reset_hscore_button"]["x"], self.button_coordinates["reset_hscore_button"]["y"]))
+
     def draw_rlc_buttons(self, screen):
         screen.blit(self.right_button, (self.button_coordinates["right_button"]["x"], self.button_coordinates["right_button"]["y"]))
         screen.blit(self.left_button, (self.button_coordinates["left_button"]["x"], self.button_coordinates["left_button"]["y"]))
@@ -97,7 +114,6 @@ class Buttons:
         self.right_button_hitbox = pygame.Rect(self.button_coordinates["right_button"]["x"], self.button_coordinates["right_button"]["y"], self.button_height, self.button_width)
         self.left_button_hitbox = pygame.Rect(self.button_coordinates["left_button"]["x"], self.button_coordinates["left_button"]["y"], self.button_height, self.button_width)
         self.choose_button_hitbox = pygame.Rect(self.button_coordinates["choose_button"]["x"], self.button_coordinates["choose_button"]["y"], self.button_height, self.button_width)
-
 
 
 
